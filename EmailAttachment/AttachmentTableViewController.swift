@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MessageUI
 
 class AttachmentTableViewController: UITableViewController {
 
@@ -47,3 +48,23 @@ class AttachmentTableViewController: UITableViewController {
     }
 
 }
+
+extension AttachmentTableViewController: MFMailComposeViewControllerDelegate {
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        switch result {
+        case .cancelled:
+            print("Mail Canceled")
+        case .failed:
+            print("Failed to send: \(error?.localizedDescription ?? "")")
+        case .saved:
+            print("Mail Saved")
+        case .sent:
+            print("Mail Sent")
+        }
+        dismiss(animated: true, completion: nil)
+    }
+}
+
+
+
+
