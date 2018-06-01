@@ -33,7 +33,12 @@ class AttachmentTableViewController: UITableViewController {
             }
         }
     }
-    
+
+    // MARK: - Show Email
+    func showEmail(attachment: String) {
+        
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
