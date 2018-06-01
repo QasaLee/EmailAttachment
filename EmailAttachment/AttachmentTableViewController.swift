@@ -12,6 +12,27 @@ import MessageUI
 class AttachmentTableViewController: UITableViewController {
 
     let filenames = ["10 Great iPhone Tips.pdf", "camera-photo-tips.html", "foggy.jpg", "Hello World.ppt", "no more complaint.png", "Why Appcoda.doc"]
+
+    enum MIMEType: String {
+        case jpg = "image/jpeg"
+        case png = "image/png"
+        case doc = "application/msword"
+        case ppt = "application/vnd.ms-powerpoint"
+        case html = "text/html"
+        case pdf = "application/pdf"
+
+        init?(type: String) {
+            switch type.lowercased() {
+            case "jpg": self = .jpg
+            case "png": self = .png
+            case "doc": self = .doc
+            case "ppt": self = .ppt
+            case "html": self = .html
+            case "pdf": self = .pdf
+            default: return nil
+            }
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
