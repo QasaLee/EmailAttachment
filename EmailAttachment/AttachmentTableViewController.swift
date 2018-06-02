@@ -102,19 +102,24 @@ class AttachmentTableViewController: UITableViewController {
         return cell
     }
 
+    // MARK: - Table view Delegate
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let attachment = filenames[indexPath.row]
+        showEmail(attachment: attachment)
+    }
 }
 
 extension AttachmentTableViewController: MFMailComposeViewControllerDelegate {
     func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
         switch result {
         case .cancelled:
-            print("Mail Canceled")
+            print("🤺🤺🤺Mail Canceled")
         case .failed:
-            print("Failed to send: \(error?.localizedDescription ?? "")")
+            print("🤺🤺🤺Failed to send: \(error?.localizedDescription ?? "")")
         case .saved:
-            print("Mail Saved")
+            print("🤺🤺🤺Mail Saved")
         case .sent:
-            print("Mail Sent")
+            print("🤺🤺🤺Mail Sent")
         }
         dismiss(animated: true, completion: nil)
     }
