@@ -36,7 +36,36 @@ class AttachmentTableViewController: UITableViewController {
 
     // MARK: - Show Email
     func showEmail(attachment: String) {
-        
+        guard MFMailComposeViewController.canSendMail() else {
+            print("This device can't send email")
+            return
+        }
+        let emailTitle = "Email Attachment Demo"
+        let messageBody = "Hey yourself"
+        let toRecipients = ["intoqasa@gmail.com"]
+
+        let mailComposer = MFMailComposeViewController()
+        mailComposer.mailComposeDelegate = self
+        mailComposer.setSubject(emailTitle)
+        mailComposer.setMessageBody(messageBody, isHTML: false)
+        mailComposer.setToRecipients(toRecipients)
+
+        //
+        let fileParts = attachment.components(separatedBy: ".")
+        let filename = fileParts[0]
+        let fileExtension = fileParts[1]
+
+        //
+        guard let filePath = Bundle.main.path(forResource: filename, ofType: fileExtension) else {
+            return
+        }
+
+        if let data = try? Data(contentsOf: URL(fileURLWithPath: filePath)), let mimeType = MIMEType(type: fileExtension) {
+            mailComposer.addAttachmentData(data, mimeType: mimeType.rawValue, fileName: filename)
+        }
+
+        // Display Email UI
+        present(mailComposer, animated: true, completion: nil)
     }
 
     override func viewDidLoad() {
